@@ -1,0 +1,55 @@
+Jack Chambers
+Term Project Notes
+
+// Idea:
+Potentiometer code lock
+Rotate pot to lock / unlock
+Using the display to show the digit on the right
+Left display shows "L" "U" and "S"
+
+
+// States:
+Locked Mode:
+	Rotate pot to select numbers
+	Select numbers with SW3
+	Reset entry with SW4
+	
+Unlocked Mode:
+	Rotate pot to change between L and S on the right digit
+	Select mode with SW3
+	SW4 direct to vanduino LED (unlocked ability)
+	
+Set mode:
+	Rotate pot to set right digit
+	Left digit shows 1-4 for which digit you are entering
+	SW3 sets the entry for the code
+	SW4 resets the entry
+	
+	
+// State Transitions:
+Locked Mode
+	Correct Code -> Unlocked Mode
+	Reset -> Locked Mode
+	
+Unlocked Mode:
+	S + SW3 -> Set Mode
+	L + SW3 -> Lock Mode
+	
+Set Mode:
+	Digit 1-3 + SW3 -> Set Mode
+	Digit 4 + SW3 -> Locked Mode (new code)
+	SW4 -> Set Mode (digit 1)
+	Digit 1 + SW4 -> Unlocked Mode (return)
+	
+	
+	
+// Challenges
+	Displaying error / success messages
+	Creating a good experience with limited IO
+
+// Process
+	Created a new function to write patterns to the 7seg
+	DISPLAY_write(int leftCustom[7], int rightHex)
+	and other overrides
+	Created enum for lock state
+	Turning dial and selecting options updates state / internal vars
